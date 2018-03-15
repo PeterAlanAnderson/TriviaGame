@@ -26,24 +26,68 @@ const Q19 = {query:"?", choices:["","","",""], answer: ""};
 const Q20 = {query:"?", choices:["","","",""], answer: ""};
 
 let questionArr = [Q1];
-let askedQuestions = [];
+let questionArrIndex = 0;
 
 
 $("#goButton").on("click", function() {
     console.log("button was clicked");
-    $("#timerCounter").text(10);
-    triviaTimer = setInterval(printTime, 1000);
-    triviaStart();
+    gameLoop();
 });
 
-function triviaStart(){
-    let currentQuestion = questionArr[0];
-    $("#activeQuestion").text(currentQuestion.query);
-    $("#answerTextA").text(currentQuestion.choices[0]);
-    $("#answerTextB").text(currentQuestion.choices[1]);
-    $("#answerTextC").text(currentQuestion.choices[2]);
-    $("#answerTextD").text(currentQuestion.choices[3]);
+function gameLoop(){
+    $("#timerCounter").text(10);
+    triviaTimer = setInterval(printTime, 1000);
+    printQuestions(questionArr[questionArrIndex]);
+
+    $("#answerButtonA").on("click", function() {
+        clearInterval(triviaTimer);
+        checkAnswer(0);
+    });
+
+    $("#answerButtonB").on("click", function() {
+        clearInterval(triviaTimer);
+        checkAnswer(1);
+    });
+
+    $("#answerButtonC").on("click", function() {
+        clearInterval(triviaTimer);
+        checkAnswer(2);
+    });
+
+    $("#answerButtonD").on("click", function() {
+        clearInterval(triviaTimer);
+        checkAnswer(3);
+    });
+};
+
+function checkAnswer(n) {
+    if(questionArr[questionArrIndex].choices[n] === questionArr[questionArrIndex].answer) {
+        console.log("correct!")
+        numCorrect++;
+        questionArrIndex++;
+        checkForGameEnd();
+    } else {
+        console.log("WRONG")
+        numIncorrect++;
+        questionArrIndex++;
+        checkForGameEnd()
+    }
+};
+
+function checkForGameEnd() {
+    if (questionArrIndex === questionArr.length){
+        alert("The game is over! "+numCorrect+"-correct, "+numIncorrect+"-incorrect");
+    }
 }
+
+function printQuestions(printQ){
+    $("#activeQuestion").text(printQ.query);
+    $("#answerTextA").text(printQ.choices[0]);
+    $("#answerTextB").text(printQ.choices[1]);
+    $("#answerTextC").text(printQ.choices[2]);
+    $("#answerTextD").text(printQ.choices[3]);
+    
+};
 
 function printTime() {
     if(timeLimit === 0){
@@ -51,6 +95,7 @@ function printTime() {
         clearInterval(triviaTimer);
         // $("#timerCounter").text(0);
         alert("Time's up!");
+        timeUp();
     } else {
         $("#timerCounter").text(timeLimit-1);
         timeLimit--;
