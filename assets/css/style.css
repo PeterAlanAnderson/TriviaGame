@@ -1,0 +1,27 @@
+html {
+    background-image: url("background.jpg");
+    background-color: black;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: lightgray;
+
+}
+
+.mainContainer {
+    opacity: 1;
+    background-color: transparent;
+    color: lightgray;
+    background-color: rgba(192,192,192,0.3);
+}
+
+body {
+    opacity: 1;
+    background-color: transparent;
+}
+
+.topBar {
+    /* background-color: grey; */
+
+
+}
