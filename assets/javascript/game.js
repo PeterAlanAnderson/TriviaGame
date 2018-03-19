@@ -114,7 +114,7 @@ function checkForGameEnd() {
     if (questionArrIndex === questionArr.length){
         questionArrIndex = 0;
         gameIsActive = 0;
-        $("#focusBox").html('<div>Game over!<br> You got '+numCorrect+' right, and '+numIncorrect+' incorrect! <br> Click "Go" to start again!</div>');
+        $("#focusBox").html('<div class="haveFun">Game over!<br> You got '+numCorrect+' right, and '+numIncorrect+' incorrect! <br> Click "Go" to start again!</div>');
     } else {
         gameLoop();
     }
@@ -127,7 +127,7 @@ function checkForGameEnd() {
 
 function printBox(){
     console.log("printBox started")
-    $("#focusBox").html('<div class="col-md-6" id="questionBox">    <h2 id="activeQuestion"></h2>        <ul>            <li><button id="answerButtonA" type="button" class="btn btn-primary">A</button>                <p id="answerTextA"></p>            </li>            <li><button id="answerButtonB" type="button" class="btn btn-primary">B</button>                <p id="answerTextB"></p>            </li>            <li><button id="answerButtonC" type="button" class="btn btn-primary">C</button>                <p id="answerTextC"></p>            </li>            <li><button id="answerButtonD" type="button" class="btn btn-primary">D</button>                <p id="answerTextD"></p>            </li>        </ul>    </div>')
+    $("#focusBox").html('<div class="col-md-12" id="questionBox">    <h2 id="activeQuestion"></h2>    <br>    <ul>            <li><button id="answerButtonA" type="button" class="btn btn-primary">A</button>                <p id="answerTextA" class="answerText"></p>            </li>      <br>      <li><button id="answerButtonB" type="button" class="btn btn-primary">B</button>                <p id="answerTextB" class="answerText"></p>            </li>      <br>      <li><button id="answerButtonC" type="button" class="btn btn-primary">C</button>                <p id="answerTextC" class="answerText"></p>            </li>     <br>       <li><button id="answerButtonD" type="button" class="btn btn-primary">D</button>                <p id="answerTextD" class="answerText"></p>            </li>        </ul>    </div>')
 }
 
 // This shuffles arrays.  It's the Knuth-Shuffle.  Why re-invent the wheel?
@@ -167,18 +167,18 @@ function printQuestions(printQ){
 // time limit.  They increment the score counters and kick off checkForGameEnd.
 
 function correctAnswer() {
-    $("#focusBox").html('<div>Correct!</div>');
+    $("#focusBox").html('<div class="haveFun">Correct!</div>');
     setTimeout(checkForGameEnd, 2500);
 }
 
 function incorrectAnswer() {
-    $("#focusBox").html('<div>Incorrect!</div>');
-    setTimeout(checkForGameEnd, 2500);
+    $("#focusBox").html('<div class="haveFun">Incorrect!<br>The correct answer was:<br>'+questionArr[questionArrIndex-1].answer+'</div>');
+    setTimeout(checkForGameEnd, 4000);
 }
 
 function timeUp() {
-    $("#focusBox").html('<div>Time is up!</div>');
-    setTimeout(checkForGameEnd, 2500);
+    $("#focusBox").html('<div class="haveFun">Time is up!<br>The correct answer was:<br>'+questionArr[questionArrIndex-1].answer+'</div>');
+    setTimeout(checkForGameEnd, 4000);
 }
 
 
